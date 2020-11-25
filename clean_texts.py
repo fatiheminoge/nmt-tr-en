@@ -19,6 +19,8 @@ def combine_files(list1,list2,brace='\t'):
         new_list.append('%s%s%s'%(line1,brace,line2))
     return new_list 
 
+
+
 ## split into sentences
 def to_pairs(list):
     return [line.split('\t') for line in list]
@@ -36,6 +38,8 @@ def clean_pairs(lines):
             line = [word.lower().translate(table) for word in line]
             line = [re_print.sub('',word) for word in line]
             line = [word for word in line if word.isalpha()]
+            line.insert(0,'<start>')
+            line.append('<end>')
             clean_pair.append(line)
         cleaned.append(clean_pair)
     return np.array(cleaned)
@@ -44,8 +48,8 @@ def save_data(sentences,filename):
     joblib.dump(sentences,open(filename,'wb'))
     print('Saved: %d' % len(sentences))
 
-filename1 = 'opus-100-corpus-en-tr\opus.en-tr-test.tr'
-filename2 = 'opus-100-corpus-en-tr\opus.en-tr-test.en'
+filename1 = 'opus-100-corpus-en-tr\opus.en-tr-train.tr'
+filename2 = 'opus-100-corpus-en-tr\opus.en-tr-train.en'
 
 file1 = open_file(filename1)
 file2 = open_file(filename2)
@@ -56,7 +60,7 @@ pairs = to_pairs(combined)
 
 clean_pairs = clean_pairs(pairs)
 
-filename = 'tr-en-test.pkl'
+filename = 'tr-en-train.pkl'
 save_data(clean_pairs,filename)
 
 for i in range(20):
