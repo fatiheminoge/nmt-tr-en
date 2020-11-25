@@ -1,0 +1,11 @@
+.ipynb_checkpoints
+.vscode
+opus-100-corpus-en-tr
+Untitled.ipynb
+opus-100-corpus-en-tr-v1.0.tar.gz
+tr-en-dev.pkl
+tr-en-train.pkl
+tr-en-test.pkl
+old
+deu-en
+model.png
